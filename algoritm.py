@@ -1,7 +1,15 @@
 class positionering:
-
+    """
+    klassen representerar hela losaren, fran dess aktuella position och riktning till hur manga steg den tagit
+    """
 
     def __init__(self, position, lista, riktning, antal_steg, version):
+        """"
+        Metoden initerar nodvandiga varden for klassen
+        inparameter: position, lista, riktning, antal_steg, version (tupel, lista, tupel, int, str)
+        return: None
+        """
+
 
         self.riktning = riktning
         self.position = position
@@ -10,6 +18,11 @@ class positionering:
         self.version = version
 
     def rorelse_riktning(self):
+        """
+        Metoden bestammer nya varden for fram, bak, hoger och vanster utifran aktuell riktning
+        inparameter: None
+        return: algoritm (tupler av tupler)
+        """
 
         riktning = self.riktning
 
@@ -38,10 +51,15 @@ class positionering:
         vanster_losare = (vanster, fram, hoger, bak)
         hoger_losare = (hoger, fram, vanster, bak)
 
-        return (vanster_losare, hoger_losare)
+        return (vanster_losare, hoger_losare) #algoritmerna
 
 
     def rorelse(self, algoritm):
+        """
+        Metoden ansvarar for och uppdaterar vilken riktning och position, samt hur manga steg varje losare har efter varje steg.
+        inparameter: algoritm (tupler av tupler) - nya och definerade riktningar
+        return: None
+        """
 
         lista = self.lista               
         rad, kolumn = self.position
@@ -49,8 +67,11 @@ class positionering:
         if self.version == "vanster":
             algoritm = algoritm[0]
 
-        else:
+        elif self.version == "hoger":
             algoritm = algoritm[1]
+
+        else:
+            return None
 
         for rotation in algoritm:
 

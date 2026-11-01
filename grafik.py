@@ -34,7 +34,7 @@ class Labyrintfonster(Frame):
                 slut_x = (kolumn + 1) * self.box_langd
                 slut_y = (rad + 1) * self.box_langd
                 self.canvas.coords(self.box, x + self.box_langd/10, y + self.box_langd/10, slut_x - self.box_langd/10, slut_y - self.box_langd/10)
-                self.label.config(text = namn + " Antal steg =  " + str(antal_steg), fg = "black", font = 24)
+                self.label.config(text = namn + " Antal steg =  " + str(antal_steg), fg = "black", font = 18)
 
     def labyrint_monster(self, lista):
 
@@ -60,7 +60,7 @@ class Labyrintfonster(Frame):
 
 def huvud_fonster(position, labyrint, antal_steg):
     huvud_fonster = Tk()
-    huvud_fonster.geometry("1200x900")
+    #huvud_fonster.geometry("1200x600")
     huvud_fonster.config(bg="black")
     vanster_maze = Labyrintfonster(position, labyrint, antal_steg, "VANSTER:")
     vanster_maze.grid(row = 0, column = 0)
