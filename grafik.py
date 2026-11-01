@@ -4,6 +4,9 @@ sidlangd = 600
 
 
 class Labyrintfonster(Frame):
+    """
+    Denna klass ansvarar för labyrintvyerna
+    """
 
     def __init__(self, position, lista, antal_steg, namn):
         super().__init__()
