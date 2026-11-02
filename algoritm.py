@@ -85,3 +85,4 @@ class positionering:
                     self.antal_steg += 1
                     return None
 
+
