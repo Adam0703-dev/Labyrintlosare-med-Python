@@ -6,7 +6,6 @@ from time import sleep
 
         
 def uppdatera(maze, losningar, MOL):
-    totala_steg = []
 
     for losare in zip(maze, losningar):
         if losare[1].position != MOL:
@@ -14,14 +13,9 @@ def uppdatera(maze, losningar, MOL):
             losare[1].rorelse(algoritm)
             losare[0].aktuell_position(losare[1].position, losare[1].antal_steg)
 
-        totala_steg.append(losare[1].antal_steg)
         
     
     losare[0].after(100, uppdatera, maze, losningar, MOL,)
-    
-    if losare[1].position == MOL:
-        
-        return print(totala_steg)
 
 
 

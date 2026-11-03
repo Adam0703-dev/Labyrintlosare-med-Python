@@ -57,9 +57,6 @@ class Labyrintfonster(Frame):
         self.box = self.canvas.create_rectangle(position[1] * box_langd + box_langd/10, position[0] * box_langd + box_langd/10, (position[1] + 1) * box_langd - box_langd/10, (position[0] + 1) * box_langd - box_langd/10, fill = "white")
 
 
-def resultat(totala_steg):
-     resultat_lista = Frame.totala_steg
-
 def huvud_fonster(position, labyrint, antal_steg):
     huvud_fonster = Tk()
     #huvud_fonster.geometry("1200x600")
