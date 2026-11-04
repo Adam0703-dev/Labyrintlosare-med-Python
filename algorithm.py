@@ -27,26 +27,10 @@ class Movement:
         direction = self.direction
 
 
-        if direction == (1, 0): #riktad ned
-            left = (0, 1)
-            right = (0, -1) 
-            back = (-1,0)
-            forward = (1,0)
-        elif direction == (0, -1): #riktad vänster
-            left = (1, 0)
-            right = (-1, 0) 
-            back = (0,1)
-            forward = (0,-1)   
-        elif direction == (0,1): #riktad höger
-            left = (-1, 0)
-            right = (1, 0) 
-            back = (0,-1)
-            forward = (0,1) 
-        elif direction == (-1, 0): #riktad upp
-            left = (0, -1)
-            right = (0, 1)
-            back = (1, 0)
-            forward = (-1, 0)
+        left = (direction[1] * -1, direction[0])
+        right = (direction[1], direction[0] * -1)
+        back = (direction[0] * -1, direction[1] * -1)
+        forward = (direction[0], direction[1])
 
         left_solver = (left, forward, right, back)
         right_solver = (right, forward, left, back)

@@ -9,7 +9,7 @@ def update(maze_frame, solutions, GOAL):
 
     for algorithm in zip(maze_frame, solutions):
         if algorithm[1].position != GOAL:
-            direction= algorithm[1].movement_direction()
+            direction = algorithm[1].movement_direction()
             algorithm[1].one_move(direction)
             algorithm[0].current_position(algorithm[1].position, algorithm[1].step_count)
 
