@@ -17,9 +17,7 @@ class Maze_frame(Frame):
         self.maze = maze
         self.frame()
         self.maze_grid(maze)
-        self.solver_marker()
-        self.next_position(position)
-
+        self.create_solver_marker()
 
     def frame(self):
 
@@ -43,7 +41,7 @@ class Maze_frame(Frame):
 
 
 
-    def solver_marker(self, position): 
+    def move_solver_marker(self, position): 
         
                 row, column = position
                 x = column * self.square_length
@@ -93,7 +91,7 @@ def update(maze_frame, solvers, GOAL):
         if solver.position != GOAL:
             direction = solver.movement_direction()
             solver.one_move(direction)
-            maze_view.next_position(solver.position)
+            maze_view.move_solver_marker(solver.position)
             maze_view.step_counter(solver.step_count)
 
         print(solver.step_count)
