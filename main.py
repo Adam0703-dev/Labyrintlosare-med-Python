@@ -1,63 +1,63 @@
-import grafik
-from algoritm import *
-import labyrint_generator
+import graphics
+from algorithm import *
+import maze_generator
 
 
 
         
-def uppdatera(maze, losningar, MOL):
+def update(maze_frame, solutions, GOAL):
 
-    for losare in zip(maze, losningar):
-        if losare[1].position != MOL:
-            algoritm = losare[1].rorelse_riktning()
-            losare[1].rorelse(algoritm)
-            losare[0].aktuell_position(losare[1].position, losare[1].antal_steg)
+    for algorithm in zip(maze_frame, solutions):
+        if algorithm[1].position != GOAL:
+            direction= algorithm[1].movement_direction()
+            algorithm[1].one_move(direction)
+            algorithm[0].current_position(algorithm[1].position, algorithm[1].step_count)
 
         
     
-    losare[0].after(100, uppdatera, maze, losningar, MOL,)
+    algorithm[0].after(100, update, maze_frame, solutions, GOAL)
 
 def terminal():
 
     print(f"""
-    Valkommen till labyrintlosaren!
+    Welcome to the Maze solver!
     
-    1. Starta Labyrintlosare
-    2. Avsluta program
+    1. Start program
+    2. End program
     """)
 
-    val = input("Valj ett alternativ: ")
-    return val
+    choice = input("Choose an alternative (1-2): ")
+    return choice
 
 def main():
 
-    fil = "labyrint.txt"
-    labyrint = labyrint_generator.las_in_labyrint(fil)
+    file = "maze.txt"
+    maze = maze_generator.maze_reader(file)
 
     START = (0 , 1)
-    MOL = (len(labyrint) - 1, len(labyrint[-1]) - 2) #nast sista kolumnen av bottenraden av labyrinten
-    antal_steg = 0  
+    GOAL = (len(maze) - 1, len(maze[-1]) - 2) #näst sista kolumnen av bottenraden av labyrinten
+    step_count = 0  
 
     position = START
-    riktning = (1, 0) #ned
-    vanster_losare = positionering(position, labyrint, riktning, antal_steg, "vanster")
-    hoger_losare = positionering(position, labyrint, riktning, antal_steg, "hoger")
-    losningar = (vanster_losare, hoger_losare)
+    direction = (1, 0) #ned
+    left_solver = Movement(position, maze, direction, step_count, "left")
+    right_solver = Movement(position, maze, direction, step_count, "right")
+    solutions = (left_solver, right_solver)
 
     while True:
 
-        val = terminal()
+        choice = terminal()
 
-        if val == "1":
-            maze = grafik.huvud_fonster(position, labyrint, antal_steg)
-            maze[0].after(100, uppdatera, maze, losningar, MOL) #En maze valjs for att initera loopen
-            maze[0].mainloop()
+        if choice == "1":
+            maze_frame = graphics.main_window(position, maze, step_count)
+            maze_frame[0].after(100, update, maze_frame, solutions, GOAL) #Ett labyrintfönster väljs for att initera loopen
+            maze_frame[0].mainloop()
 
-        elif val == "2":
+        elif choice == "2":
             break
 
         else:
-            print(f"Alternativet du angav finns inte")
+            print(f"Invalid input. Try again.")
 
 
 if __name__ == "__main__":
