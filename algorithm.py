@@ -17,6 +17,8 @@ class Movement:
         self.step_count = step_count
         self.name = name
 
+
+
     def movement_direction(self):
         """
         Metoden bestämmer nya värden för fram, bak, höger och vänster utifrån aktuell riktning
@@ -25,7 +27,6 @@ class Movement:
         """
 
         direction = self.direction
-
 
         left = (direction[1] * -1, direction[0])
         right = (direction[1], direction[0] * -1)
@@ -37,6 +38,8 @@ class Movement:
         solvers = (left_solver, right_solver)
 
         return solvers
+
+
 
 
     def one_move(self, solvers):
