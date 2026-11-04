@@ -19,7 +19,7 @@ class Maze_terminal():
                 if grid[row][column] == 1:
                     new_row.append("#")
                 elif grid[row][column] == 0:
-                    new_row.append(".")
+                    new_row.append(" ")
             self.terminal_view.append(new_row)
 
 
@@ -42,10 +42,10 @@ def main_terminal(grid):
 
 def print_maze_terminal(terminal_windows, maze):
 
-    print(f"                   LEFT WALL FOLLOWER                                          RIGHT WALL FOLLOWER")
+    print(f"       LEFT WALL FOLLOWER                     RIGHT WALL FOLLOWER")
     
     for row in range(len(maze)):
-        print(f"{terminal_windows[0].terminal_view[row]}     {terminal_windows[1].terminal_view[row]}")
+        print(f"{"  ".join(terminal_windows[0].terminal_view[row])}        {"  ".join(terminal_windows[1].terminal_view[row])}")
         
     print("\n \n")
 
