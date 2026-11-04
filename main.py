@@ -1,7 +1,8 @@
 import graphics
 from algorithm import *
 import maze_generator
-from terminal_graphics import *
+import terminal_graphics
+import time
 
 
 
@@ -26,24 +27,34 @@ def main():
     file = "maze.txt"
     maze = maze_generator.maze_reader(file)
 
-
     START = (0 , 1)
     GOAL = (len(maze) - 1, len(maze[-1]) - 2) #näst sista kolumnen av bottenraden av labyrinten
     step_count = 0  
     position = START
     start_direction = (1, 0) #ned
 
-
-    left_solver = Maze_solver(position, maze, start_direction, step_count, "left")
-    right_solver = Maze_solver(position, maze, start_direction, step_count, "right")
-    solvers = (left_solver, right_solver)
+    
 
     while True:
 
+        left_solver = Maze_solver(position, maze, start_direction, step_count, "left")
+        right_solver = Maze_solver(position, maze, start_direction, step_count, "right")
+        solvers = (left_solver, right_solver)
+
         choice = terminal()
 
+        if choice == "1":
 
-        if choice == "3":
+            while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
+
+                terminal_windows = terminal_graphics.main_terminal(maze)
+                terminal_graphics.update(terminal_windows, solvers, maze, GOAL)
+                time.sleep(0.2)
+            terminal_graphics.final_update(terminal_windows, solvers, maze)
+
+
+
+        elif choice == "3":
             maze_frame = graphics.main_window(position, maze, step_count)
             maze_frame[0].after(100, graphics.update, maze_frame, solvers, GOAL) #Ett labyrintfönster väljs for att initera loopen
             maze_frame[0].mainloop()

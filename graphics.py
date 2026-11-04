@@ -19,6 +19,8 @@ class Maze_frame(Frame):
         self.maze_grid(maze)
         self.create_solver_marker()
 
+
+
     def frame(self):
 
         self.label = Label(self)
@@ -50,6 +52,8 @@ class Maze_frame(Frame):
                 end_y = (row + 1) * self.square_length
                 self.canvas.coords(self.box, x + self.square_length/10, y + self.square_length/10, end_x - self.square_length/10, end_y - self.square_length/10)
 
+
+
     def maze_grid(self, maze):
 
         for row in range(len(maze)):
@@ -80,9 +84,10 @@ def main_window(position, maze, step_count):
     right_maze = Maze_frame(position, maze, step_count, "RIGHT:")
     right_maze.grid(row = 0, column = 1)
 
-    window = (left_maze, right_maze)
+    maze_frame = (left_maze, right_maze)
 
-    return window
+    return maze_frame
+
 
 
 def update(maze_frame, solvers, GOAL):
@@ -93,8 +98,6 @@ def update(maze_frame, solvers, GOAL):
             solver.one_move(direction)
             maze_view.move_solver_marker(solver.position)
             maze_view.step_counter(solver.step_count)
-
-        print(solver.step_count)
 
     if (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
         maze_view.after(100, update, maze_frame, solvers, GOAL)
