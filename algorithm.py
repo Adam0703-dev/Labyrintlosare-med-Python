@@ -1,4 +1,4 @@
-class Movement:
+class Maze_solver:
     """
     klassen representerar hela lösaren, fran dess aktuella position och riktning till hur många steg den tagit
     """
@@ -23,7 +23,7 @@ class Movement:
         """
         Metoden bestämmer nya värden för fram, bak, höger och vänster utifrån aktuell riktning
         inparameter: None
-        return: solvers (tupler av tupler)
+        return: direction_rules (tupler av tupler)
         """
 
         direction = self.direction
@@ -33,19 +33,19 @@ class Movement:
         back = (direction[0] * -1, direction[1] * -1)
         forward = (direction[0], direction[1])
 
-        left_solver = (left, forward, right, back)
-        right_solver = (right, forward, left, back)
-        solvers = (left_solver, right_solver)
+        left_rule = (left, forward, right, back)
+        right_rule = (right, forward, left, back)
+        direction_rules = (left_rule, right_rule)
 
-        return solvers
-
-
+        return direction_rules
 
 
-    def one_move(self, solvers):
+
+
+    def one_move(self, direction_rules):
         """
         Metoden ansvarar för och uppdaterar vilken riktning och position, samt hur många steg varje lösare har efter varje steg.
-        inparameter: solvers (tupler av tupler) - nya och definerade riktningar
+        inparameter: direction_rules (tupler av tupler) - nya och definerade riktningar
         return: None
         """
 
@@ -53,15 +53,15 @@ class Movement:
         row, column = self.position
 
         if self.name == "left":
-            solver = solvers[0]
+            direction_rule = direction_rules[0]
 
         elif self.name == "right":
-            solver = solvers[1]
+            direction_rule = direction_rules[1]
 
         else:
             return None
 
-        for rotation in solver:
+        for rotation in direction_rule:
 
             if (len(maze) > (row + rotation[0]) >= 0) and (len(maze[row]) > (column + rotation[1])  >= 0) and (maze[row][column] == 0): 
 
