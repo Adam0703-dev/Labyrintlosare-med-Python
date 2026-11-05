@@ -3,10 +3,10 @@ class Maze_solver:
     klassen representerar hela lösaren, fran dess aktuella position och riktning till hur många steg den tagit
     """
 
-    def __init__(self, position, maze, direction, step_count, name):
+    def __init__(self, position, maze, direction, step_count, strategy):
         """"
         Metoden initerar nödvandiga parameterar för klassen
-        inparameter: position, maze, direction, step_count, name (tupel, lista, tupel, int, str)
+        inparameter: position, maze, direction, step_count, strategy (tupel, lista, tupel, int, str)
         return: None
         """
 
@@ -15,7 +15,7 @@ class Maze_solver:
         self.position = position
         self.maze = maze
         self.step_count = step_count
-        self.name = name
+        self.strategy = strategy
 
 
 
@@ -52,10 +52,10 @@ class Maze_solver:
         maze = self.maze               
         row, column = self.position
 
-        if self.name == "left":
+        if self.strategy == "left":
             direction_rule = direction_rules[0]
 
-        elif self.name == "right":
+        elif self.strategy == "right":
             direction_rule = direction_rules[1]
 
         else:
