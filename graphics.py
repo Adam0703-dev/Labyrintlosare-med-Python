@@ -1,6 +1,6 @@
 from tkinter import *
 
-length = 600
+LENGTH = 600
 
 
 class Maze_frame(Frame):
@@ -10,7 +10,7 @@ class Maze_frame(Frame):
 
     def __init__(self, position, maze, step_count, strategy):
         super().__init__()
-        self.square_length = (length/(len(maze)))
+        self.square_length = (LENGTH/(len(maze)))
         self.strategy = strategy
         self.position = position
         self.step_count = step_count
@@ -25,7 +25,7 @@ class Maze_frame(Frame):
 
         self.label = Label(self)
         self.label.grid(row = 0)
-        self.canvas = Canvas(self, width = length, height = length, bg = "black")
+        self.canvas = Canvas(self, width = LENGTH, height = LENGTH, bg = "black")
         self.canvas.grid(row = 1)
 
 

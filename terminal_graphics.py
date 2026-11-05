@@ -73,5 +73,4 @@ def final_update(terminal_windows, solvers, maze):
 
     print(f"total steps taken: LEFT = {solvers[0].step_count}   RIGHT = {solvers[1].step_count}")
 
-
     

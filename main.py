@@ -3,8 +3,7 @@ from algorithm import *
 import maze_generator
 import terminal_graphics
 import time
-
-
+import os
 
 def terminal():
 
@@ -20,6 +19,26 @@ def terminal():
     choice = input("Choose an alternative (1-4): ")
     return choice
 
+def empty_window():
+
+    os.system("cls")
+
+
+def initiate_terminal_maze(solvers, maze, GOAL):
+
+    while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
+        terminal_windows = terminal_graphics.main_terminal(maze)
+        terminal_graphics.update(terminal_windows, solvers, maze, GOAL)
+        time.sleep(0.3)
+        empty_window()
+    terminal_graphics.final_update(terminal_windows, solvers, maze)
+    
+
+
+def initiate_graphic_maze(position, maze, solvers, step_count, GOAL):
+    maze_frame = graphics.main_window(position, maze, step_count)
+    maze_frame[0].after(100, graphics.update, maze_frame, solvers, GOAL) #Ett labyrintfönster väljs for att initera loopen
+    maze_frame[0].mainloop()
 
 
 def main():
@@ -44,20 +63,13 @@ def main():
         choice = terminal()
 
         if choice == "1":
+            initiate_terminal_maze(solvers, maze, GOAL)
 
-            while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
-
-                terminal_windows = terminal_graphics.main_terminal(maze)
-                terminal_graphics.update(terminal_windows, solvers, maze, GOAL)
-                time.sleep(0.2)
-            terminal_graphics.final_update(terminal_windows, solvers, maze)
-
-
+        elif choice =="2":
+            pass
 
         elif choice == "3":
-            maze_frame = graphics.main_window(position, maze, step_count)
-            maze_frame[0].after(100, graphics.update, maze_frame, solvers, GOAL) #Ett labyrintfönster väljs for att initera loopen
-            maze_frame[0].mainloop()
+            initiate_graphic_maze(position, maze, solvers, step_count, GOAL)
 
         elif choice == "4":
             break
