@@ -35,17 +35,23 @@ def initiate_terminal_maze(solvers, maze, GOAL):
     
 
 
+def initiate_random_maze_generator(position, maze):
+
+    new_maze = maze_generator.create_empty_maze(maze)
+    new_maze = maze_generator.miner(position, new_maze)
+    return new_maze
+    
+
+
 def initiate_graphic_maze(position, maze, solvers, step_count, GOAL):
 
     clear_terminal()
-    maze_frame = graphics.main_window(position, maze, step_count)
-    maze_frame[0].after(100, graphics.update, maze_frame, solvers, GOAL) #Ett labyrintfönster väljs for att initera loopen
+    maze_frame = graphics.create_main_window(position, maze, step_count)
+    maze_frame[0].after_id = maze_frame[0].after(100, graphics.update, maze_frame, solvers, GOAL)
+    #Ett labyrintfönster väljs for att initera uppdaterings loopen
     maze_frame[0].mainloop()
 
 
-def initiate_random_maze_generator():
-
-    clear_terminal()
 
 
 def main():
@@ -74,10 +80,12 @@ def main():
             initiate_terminal_maze(solvers, maze, GOAL)
 
         elif choice =="2":
-            initiate_random_maze_generator()
+            maze = initiate_random_maze_generator(position, maze)
+            print("New maze generated.")
 
         elif choice == "3":
             initiate_graphic_maze(position, maze, solvers, step_count, GOAL)
+            
 
         elif choice == "4":
             clear_terminal()

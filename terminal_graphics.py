@@ -46,14 +46,13 @@ def print_maze_terminal(terminal_windows, maze):
     
     for row in range(len(maze)):
         print(f"{"  ".join(terminal_windows[0].terminal_view[row])}        {"  ".join(terminal_windows[1].terminal_view[row])}")
-        
-    print("\n \n")
+    
 
 
     
 def update(terminal_windows, solvers, maze, GOAL):
 
-    for maze_view, solver in zip(terminal_windows, solvers):
+    for maze_view, solver in zip(terminal_windows, solvers):   #zip tagen ur chatgpt
         maze_view.solver_marker(solver.position)
         if (solver.position != GOAL):
             direction = solver.movement_direction()
@@ -71,6 +70,6 @@ def final_update(terminal_windows, solvers, maze):
 
     print_maze_terminal(terminal_windows, maze)
 
-    print(f"total steps taken: LEFT = {solvers[0].step_count}   RIGHT = {solvers[1].step_count}")
+    print(f"\nTotal steps taken: LEFT = {solvers[0].step_count}   RIGHT = {solvers[1].step_count}")
 
     

@@ -1,0 +1,24 @@
+import random
+
+lista = []
+LENGTH = 11
+
+for i in range(LENGTH - 2):
+    rad = []
+    for j in range(LENGTH - 2):
+        j = 1
+        rad.append(j)
+    lista.append(rad)
+
+print(lista)
+position = (0,1)
+lista[position[0]][position[1]] = 0
+stack = [position]
+
+stack.append((2,6))
+stack.append((1,5))
+
+stack.pop()
+position = stack.pop()
+print(stack)
+print(position)

@@ -1,3 +1,15 @@
+"""
+
+
+källor:
+https://docs.python.org/3/library/tkinter.html#tkinter.Frame - för grfiska användargränssnittet
+https://stackoverflow.com/questions/26168967/invalid-command-name-while-executing-after-script - för exempel 
+på hur man löser en bugg med stängningen av ett fönster under körandet
+
+
+"""
+
+
 from tkinter import *
 
 LENGTH = 600
@@ -8,16 +20,18 @@ class Maze_frame(Frame):
     Denna klass ansvarar för labyrintvyerna
     """
 
-    def __init__(self, position, maze, step_count, strategy):
+    def __init__(self, position, maze, step_count, strategy, after_id):
         super().__init__()
         self.square_length = (LENGTH/(len(maze)))
         self.strategy = strategy
         self.position = position
         self.step_count = step_count
         self.maze = maze
+        self.after_id = after_id
         self.frame()
         self.maze_grid(maze)
         self.create_solver_marker()
+
 
 
 
@@ -39,7 +53,11 @@ class Maze_frame(Frame):
     def create_solver_marker(self):
 
         position = self.position
-        self.box = self.canvas.create_rectangle(position[1] * self.square_length + self.square_length/10, position[0] * self.square_length + self.square_length/10, (position[1] + 1) * self.square_length - self.square_length/10, (position[0] + 1) * self.square_length - self.square_length/10, fill = "white")
+        self.box = self.canvas.create_rectangle(
+        position[1] * self.square_length + self.square_length/10,
+        position[0] * self.square_length + self.square_length/10,
+        (position[1] + 1) * self.square_length - self.square_length/10,
+        (position[0] + 1) * self.square_length - self.square_length/10, fill = "white")
 
 
 
@@ -72,27 +90,38 @@ class Maze_frame(Frame):
 
 
 
-def main_window(position, maze, step_count):
+def create_main_window(position, maze, step_count):
 
     main_window = Tk()
     main_window.geometry("1200x700")
     main_window.config(bg="black")
 
-    left_maze = Maze_frame(position, maze, step_count, "LEFT:")
+    left_maze = Maze_frame(position, maze, step_count, "LEFT:", 0)
     left_maze.grid(row = 0, column = 0)
 
-    right_maze = Maze_frame(position, maze, step_count, "RIGHT:")
+    right_maze = Maze_frame(position, maze, step_count, "RIGHT:", 0)
     right_maze.grid(row = 0, column = 1)
 
     maze_frame = (left_maze, right_maze)
+
+    main_window.protocol("WM_DELETE_WINDOW", lambda: closed_main_window(main_window, maze_frame))   
 
     return maze_frame
 
 
 
+def closed_main_window(main_window, maze_frame):
+
+    for frame in maze_frame:
+        frame.after_cancel(frame.after_id)
+
+    main_window.destroy()
+
+     
+
 def update(maze_frame, solvers, GOAL):
 
-    for maze_view, solver in zip(maze_frame, solvers):
+    for maze_view, solver in zip(maze_frame, solvers):      #zip - https://docs.python.org/3.3/library/functions.html
         if solver.position != GOAL:
             direction = solver.movement_direction()
             solver.one_move(direction)
@@ -100,4 +129,4 @@ def update(maze_frame, solvers, GOAL):
             maze_view.step_counter(solver.step_count)
 
     if (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
-        maze_view.after(100, update, maze_frame, solvers, GOAL)
+        maze_view.after_id = maze_view.after(100, update, maze_frame, solvers, GOAL)

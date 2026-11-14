@@ -1,6 +1,6 @@
 class Maze_solver:
     """
-    klassen representerar hela lösaren, fran dess aktuella position och riktning till hur många steg den tagit
+    klassen representerar hela lösaren, från dess aktuella position och riktning till hur många steg den tagit.
     """
 
     def __init__(self, position, maze, direction, step_count, strategy):
