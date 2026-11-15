@@ -1,5 +1,9 @@
+import time
+import os
+from main import clear_terminal
 
 class Maze_terminal():
+
 
     def __init__(self, grid):
         self.grid = grid
@@ -30,7 +34,6 @@ class Maze_terminal():
 
 
 
-
 def main_terminal(grid):
 
     left_maze = Maze_terminal(grid)
@@ -40,33 +43,40 @@ def main_terminal(grid):
 
     return terminal_windows
 
+
+
 def print_maze_terminal(terminal_windows, maze):
 
     print(f"       LEFT WALL FOLLOWER                     RIGHT WALL FOLLOWER")
     
     for row in range(len(maze)):
         print(f"{"  ".join(terminal_windows[0].terminal_view[row])}        {"  ".join(terminal_windows[1].terminal_view[row])}")
-    
 
+    
 
     
 def update(terminal_windows, solvers, maze, GOAL):
 
-    for maze_view, solver in zip(terminal_windows, solvers):   #zip tagen ur chatgpt
-        maze_view.solver_marker(solver.position)
-        if (solver.position != GOAL):
-            direction = solver.movement_direction()
-            solver.one_move(direction)
+    while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
+        for maze_view, solver in zip(terminal_windows, solvers):
+            maze_view.solver_marker(solver.position)
+            if solver.position != GOAL:
+                direction = solver.movement_direction()
+                solver.one_move(direction)
+            time.sleep(0.2)
 
-    print_maze_terminal(terminal_windows, maze)
+        clear_terminal()
+        print_maze_terminal(terminal_windows, maze)
+        terminal_windows = main_terminal(maze)
+        
             
-       
+
 
 def final_update(terminal_windows, solvers, maze):
 
-    for window in range(len(terminal_windows)):
-        terminal_windows[window].maze()
-        terminal_windows[window].solver_marker(solvers[window].position)
+    for window, solver in zip(terminal_windows, solvers):
+        window.maze()
+        window.solver_marker(solver.position)
 
     print_maze_terminal(terminal_windows, maze)
 

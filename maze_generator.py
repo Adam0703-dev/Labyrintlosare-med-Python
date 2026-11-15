@@ -37,12 +37,12 @@ def create_empty_maze(maze):
 
 
 
-def miner(position, new_maze, direction, SLUT):
+def miner(position, new_maze, direction, GOAL):
 
     stack = []      
 
-    if (new_maze[position[0] + direction[0]][position[1] + direction[1]] == SLUT
-    or new_maze[position[0] + 2 * direction[0]][position[1] + 2 * direction[1]] == SLUT): 
+    if (new_maze[position[0] + direction[0]][position[1] + direction[1]] == GOAL
+    or new_maze[position[0] + 2 * direction[0]][position[1] + 2 * direction[1]] == GOAL): 
         if new_maze[position[0]][position[1]] == 1:
             new_maze[position[0]][position[1]] = 0
             stack.append(position)
@@ -51,6 +51,9 @@ def miner(position, new_maze, direction, SLUT):
     return new_maze
 
 
+def update(new_maze, position, direction, GOAl):
+    position = "as"
+    
 
 
 

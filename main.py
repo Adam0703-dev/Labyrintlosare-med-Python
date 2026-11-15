@@ -2,7 +2,6 @@ import graphics
 from algorithm import *
 import maze_generator
 import terminal_graphics
-import time
 import os
 
 def terminal():
@@ -26,19 +25,18 @@ def clear_terminal():
 
 def initiate_terminal_maze(solvers, maze, GOAL):
 
-    while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
-        terminal_windows = terminal_graphics.main_terminal(maze)
-        terminal_graphics.update(terminal_windows, solvers, maze, GOAL)
-        time.sleep(0.3)
-        clear_terminal()
+    clear_terminal()
+    terminal_windows = terminal_graphics.main_terminal(maze)
+    terminal_graphics.update(terminal_windows, solvers, maze, GOAL)
     terminal_graphics.final_update(terminal_windows, solvers, maze)
     
 
 
 def initiate_random_maze_generator(position, maze):
 
+    clear_terminal()
     new_maze = maze_generator.create_empty_maze(maze)
-    new_maze = maze_generator.miner(position, new_maze)
+    maze_generator.update(position, new_maze)
     return new_maze
     
 
