@@ -11,6 +11,7 @@ på hur man löser en bugg med stängningen av ett fönster under körandet
 
 
 from tkinter import *
+from algorithm import *
 
 LENGTH = 600
 
@@ -90,11 +91,14 @@ class Maze_frame(Frame):
 
 
 
-def create_main_window(position, maze, step_count):
+def create_main_window(position, maze, step_count, new_maze_function):
 
     main_window = Tk()
     main_window.geometry("1200x700")
     main_window.config(bg="black")
+
+    create_new_maze_button = Button(text = "Create new maze", font = 24, command = new_maze_function, state = "disabled")
+    create_new_maze_button.grid(row=1, columnspan=2)
 
     left_maze = Maze_frame(position, maze, step_count, "LEFT:", 0)
     left_maze.grid(row = 0, column = 0)
@@ -106,7 +110,34 @@ def create_main_window(position, maze, step_count):
 
     main_window.protocol("WM_DELETE_WINDOW", lambda: closed_main_window(main_window, maze_frame))   
 
-    return maze_frame
+
+    return maze_frame, create_new_maze_button
+
+
+
+def generate_new_maze(new_maze, maze_frame, position, direction, step_count, create_new_maze_button , GOAL):
+
+
+    for frame in maze_frame:
+
+        create_new_maze_button.config(state = "disabled")
+
+        frame.canvas.delete("all")
+        frame.maze_grid(new_maze)
+        frame.create_solver_marker()
+        frame.step_counter(step_count)
+        frame.move_solver_marker(position)
+
+    left_solver = Maze_solver(position, new_maze, direction, step_count, "left")
+    right_solver = Maze_solver(position, new_maze, direction, step_count, "right")
+    solvers = (left_solver, right_solver)
+
+    maze_frame[0].after_id = maze_frame[0].after(100, update, maze_frame, solvers, GOAL, create_new_maze_button)
+
+
+
+        
+
 
 
 
@@ -119,7 +150,7 @@ def closed_main_window(main_window, maze_frame):
 
      
 
-def update(maze_frame, solvers, GOAL):
+def update(maze_frame, solvers, GOAL, create_new_maze_button):
 
     for maze_view, solver in zip(maze_frame, solvers):      #zip - https://docs.python.org/3.3/library/functions.html
         if solver.position != GOAL:
@@ -129,4 +160,8 @@ def update(maze_frame, solvers, GOAL):
             maze_view.step_counter(solver.step_count)
 
     if (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
-        maze_view.after_id = maze_view.after(100, update, maze_frame, solvers, GOAL)
+        maze_view.after_id = maze_view.after(100, update, maze_frame, solvers, GOAL, create_new_maze_button)
+
+    else:
+        
+        create_new_maze_button.config(state = "normal")

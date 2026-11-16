@@ -68,6 +68,10 @@ def miner(new_maze, position, direction, stack):
             stack.pop()
             if stack != []:
                 position = stack[-1]
+
+    if len(new_maze) % 2 == 0:
+        new_maze[- 2][-2] = 0
+        new_maze[-3][-2] = 0
              
             
     return new_maze, position, direction, stack

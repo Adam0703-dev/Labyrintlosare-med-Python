@@ -1,6 +1,5 @@
 import time
-from main import clear_terminal
-
+import os
 class Maze_terminal():
 
 
@@ -32,6 +31,9 @@ class Maze_terminal():
         self.terminal_view[row][column] = "X"
 
 
+def clear_terminal():
+
+    os.system("cls")
 
 def main_terminal(grid):
 
@@ -62,7 +64,7 @@ def update(terminal_windows, solvers, maze, GOAL):
             if solver.position != GOAL:
                 direction = solver.movement_direction()
                 solver.one_move(direction)
-            time.sleep(0.2)
+            time.sleep(0.1)
 
         clear_terminal()
         print_maze_terminal(terminal_windows, maze)
