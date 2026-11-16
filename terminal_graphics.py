@@ -1,5 +1,4 @@
 import time
-import os
 from main import clear_terminal
 
 class Maze_terminal():
@@ -68,12 +67,15 @@ def update(terminal_windows, solvers, maze, GOAL):
         clear_terminal()
         print_maze_terminal(terminal_windows, maze)
         terminal_windows = main_terminal(maze)
+    time.sleep(0.2)
+    
         
             
 
 
 def final_update(terminal_windows, solvers, maze):
 
+    clear_terminal()
     for window, solver in zip(terminal_windows, solvers):
         window.maze()
         window.solver_marker(solver.position)
@@ -81,5 +83,3 @@ def final_update(terminal_windows, solvers, maze):
     print_maze_terminal(terminal_windows, maze)
 
     print(f"\nTotal steps taken: LEFT = {solvers[0].step_count}   RIGHT = {solvers[1].step_count}")
-
-    

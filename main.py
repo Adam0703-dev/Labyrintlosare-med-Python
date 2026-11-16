@@ -32,11 +32,12 @@ def initiate_terminal_maze(solvers, maze, GOAL):
     
 
 
-def initiate_random_maze_generator(position, maze):
+def initiate_random_maze_generator(maze, direction):
 
-    clear_terminal()
+    #clear_terminal()
+    miner_position = (1,1)
     new_maze = maze_generator.create_empty_maze(maze)
-    maze_generator.update(position, new_maze)
+    maze_generator.update(new_maze, miner_position, direction)
     return new_maze
     
 
@@ -78,7 +79,7 @@ def main():
             initiate_terminal_maze(solvers, maze, GOAL)
 
         elif choice =="2":
-            maze = initiate_random_maze_generator(position, maze)
+            maze = initiate_random_maze_generator(maze, start_direction)
             print("New maze generated.")
 
         elif choice == "3":

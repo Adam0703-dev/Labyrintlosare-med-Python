@@ -1,5 +1,8 @@
 """
 
+
+källor:
+https://docs.python.org/3/library/random.html  Shuffle.
 """
 
 
@@ -24,37 +27,68 @@ def maze_reader(file):
 
 
 def create_empty_maze(maze):
-    length = len(maze) - 2
+
     new_maze = []
     
-    for _ in range(length):
+    for _ in range(len(maze)):
         row_list = []
-        for _ in range(length):
+        for _ in range(len(maze)):
             row_list.append(1)
         new_maze.append(row_list)
+    new_maze[0][1] = 0 #Start
+    new_maze[len(maze)-1][len(maze[-1])-2] = 0 #Mål
     return new_maze
 
 
 
+def miner(new_maze, position, direction, stack):
 
-def miner(position, new_maze, direction, GOAL):
+    directions = [(1,0), (0,-1), (-1,0), (0,1)] #ned, vänster, upp, höger
 
-    stack = []      
-
-    if (new_maze[position[0] + direction[0]][position[1] + direction[1]] == GOAL
-    or new_maze[position[0] + 2 * direction[0]][position[1] + 2 * direction[1]] == GOAL): 
-        if new_maze[position[0]][position[1]] == 1:
-            new_maze[position[0]][position[1]] = 0
-            stack.append(position)
-        else:
-            pass
-    return new_maze
+    random.shuffle(directions)
 
 
-def update(new_maze, position, direction, GOAl):
-    position = "as"
+    for direction in directions:
+        
+
+        if (((len(new_maze) - 1) > (position[0] + 2 * direction[0]) > 0)
+        and (len(new_maze[0]) - 1) > (position[1] + 2 * direction[1])  > 0):
+
+            if new_maze[position[0]][position[1]] == 1:
+                new_maze[position[0]][position[1]] = 0
+            
+            if new_maze[position[0] + 2 * direction[0]][position[1] + 2 * direction[1]] == 1:
+                position = (position[0] + 2 * direction[0], position[1] + 2 * direction[1])
+                new_maze[position[0]][position[1]] = 0
+                new_maze[position[0] - direction[0]][position[1] - direction[1]] = 0
+                stack.append(position)
+                break
+
+    else:
+            stack.pop()
+            if stack != []:
+                position = stack[-1]
+             
+            
+    return new_maze, position, direction, stack
+
+
+
+def update(new_maze, position, direction):
+
+    stack = [position]
+
+    while stack != []:
+        
+        new_maze, position, direction, stack = miner(new_maze, position, direction, stack)
+
+    return new_maze, position, direction, stack
+        
+
+        
+
+
     
-
 
 
 """

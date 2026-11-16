@@ -63,7 +63,10 @@ class Maze_solver:
 
         for rotation in direction_rule:
 
-            if (len(maze) > (row + rotation[0]) >= 0) and (len(maze[row]) > (column + rotation[1])  >= 0) and (maze[row][column] == 0): 
+            if (
+            (len(maze) > (row + rotation[0]) >= 0)
+            and (len(maze[row]) > (column + rotation[1])  >= 0) 
+            and (maze[row][column] == 0)): 
 
                 if maze[row + rotation[0]][column + rotation[1]] == 0:
                     row += rotation[0]
