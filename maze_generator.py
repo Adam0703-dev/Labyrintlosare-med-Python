@@ -1,14 +1,20 @@
 """
+Adam Odeh 2026-11-16
 
+filen maze_generator läser in en labyrint från en textfil - maze.txt - och omvandlar texten till ett grid som programmet
+kan läsa från, ettor och nollor. Maze_generator ansvarar också för att skapa nya labyrinter med olika strukturer
 
 källor:
 https://docs.python.org/3/library/random.html  Shuffle.
 """
 
-
 import random
 
+
+
 def maze_reader(file):
+
+
 
     maze = []
     with open(file, "r", encoding="utf-8") as file:
@@ -29,14 +35,16 @@ def maze_reader(file):
 def create_empty_maze(maze):
 
     new_maze = []
-    
-    for _ in range(len(maze)):
+
+    side_length = len(maze)
+
+    for _ in range(side_length):
         row_list = []
-        for _ in range(len(maze)):
+        for _ in range(side_length):
             row_list.append(1)
         new_maze.append(row_list)
     new_maze[0][1] = 0 #Start
-    new_maze[len(maze)-1][len(maze[-1])-2] = 0 #Mål
+    new_maze[-1][-2] = 0 #Mål
     return new_maze
 
 

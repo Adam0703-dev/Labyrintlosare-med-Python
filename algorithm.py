@@ -1,3 +1,11 @@
+"""
+Adam Odeh 2026-11-16
+
+filen algorithm ansvarar för att skapa rörelsen och riktningen för varje lösar objekt, DVS. algoritmen lösaren kommer
+förålla sig till under dess körning.
+"""
+
+
 class Maze_solver:
     """
     klassen representerar hela lösaren, från dess aktuella position och riktning till hur många steg den tagit.

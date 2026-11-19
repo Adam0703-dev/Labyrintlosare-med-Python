@@ -1,5 +1,12 @@
+"""
+Adam Odeh 2026-11-16
+
+Filen terminal_graphics ansvarar för att skapa labyrinten så att den kan ses i terminalen
+"""
+
 import time
 import os
+
 class Maze_terminal():
 
 
@@ -69,7 +76,7 @@ def update(terminal_windows, solvers, maze, GOAL):
         clear_terminal()
         print_maze_terminal(terminal_windows, maze)
         terminal_windows = main_terminal(maze)
-    time.sleep(0.2)
+    time.sleep(0.1)
     
         
             

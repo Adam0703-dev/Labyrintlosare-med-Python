@@ -1,5 +1,7 @@
 """
+Adam Odeh 2026-11-16
 
+filen graphics ansvarar för att skapa det grafiska användargränssnittet för labyrinten.
 
 källor:
 https://docs.python.org/3/library/tkinter.html#tkinter.Frame - för grfiska användargränssnittet
@@ -90,65 +92,90 @@ class Maze_frame(Frame):
 
 
 
-
-def create_main_window(position, maze, step_count, new_maze_function):
-
-    main_window = Tk()
-    main_window.geometry("1200x700")
-    main_window.config(bg="black")
-
-    create_new_maze_button = Button(text = "Create new maze", font = 24, command = new_maze_function, state = "disabled")
-    create_new_maze_button.grid(row=1, columnspan=2)
-
-    left_maze = Maze_frame(position, maze, step_count, "LEFT:", 0)
-    left_maze.grid(row = 0, column = 0)
-
-    right_maze = Maze_frame(position, maze, step_count, "RIGHT:", 0)
-    right_maze.grid(row = 0, column = 1)
-
-    maze_frame = (left_maze, right_maze)
-
-    main_window.protocol("WM_DELETE_WINDOW", lambda: closed_main_window(main_window, maze_frame))   
+class Maze_window():
 
 
-    return maze_frame, create_new_maze_button
+    def __init__(self, position, direction, maze, step_count, GOAL, new_maze_function):
 
+        self.create_main_window()
 
+        self.new_maze_function = new_maze_function
 
-def generate_new_maze(new_maze, maze_frame, position, direction, step_count, create_new_maze_button , GOAL):
-
-
-    for frame in maze_frame:
-
-        create_new_maze_button.config(state = "disabled")
-
-        frame.canvas.delete("all")
-        frame.maze_grid(new_maze)
-        frame.create_solver_marker()
-        frame.step_counter(step_count)
-        frame.move_solver_marker(position)
-
-    left_solver = Maze_solver(position, new_maze, direction, step_count, "left")
-    right_solver = Maze_solver(position, new_maze, direction, step_count, "right")
-    solvers = (left_solver, right_solver)
-
-    maze_frame[0].after_id = maze_frame[0].after(100, update, maze_frame, solvers, GOAL, create_new_maze_button)
-
-
-
+        self.generate_maze_frames(position, maze, step_count)
+        self.generate_maze_button(lambda: self.buttonpress(position, direction, step_count, GOAL))
         
+        self.main_window.protocol("WM_DELETE_WINDOW", self.closed_main_window)   
 
 
 
+    def create_main_window(self):
 
-def closed_main_window(main_window, maze_frame):
+        self.main_window = Tk()
+        self.main_window.geometry("1200x700")
+        self.main_window.config(bg="black")
 
-    for frame in maze_frame:
-        frame.after_cancel(frame.after_id)
 
-    main_window.destroy()
 
-     
+    def generate_maze_frames(self, position, maze, step_count):
+        
+        left_maze = Maze_frame(position, maze, step_count, "LEFT:", 0)
+        left_maze.grid(row = 0, column = 0)
+
+        right_maze = Maze_frame(position, maze, step_count, "RIGHT:", 0)
+        right_maze.grid(row = 0, column = 1)
+
+        self.maze_frame = (left_maze, right_maze)
+
+
+
+    def generate_maze_button(self, buttonpress):
+
+        self.create_new_maze_button = Button(text = "Create new maze", font = 24,
+        command = buttonpress, state = "disabled")
+        
+        self.create_new_maze_button.grid(row=1, columnspan=2)
+
+
+
+    def buttonpress(self, position, direction, step_count, GOAL):
+
+        self.new_maze = self.new_maze_function()
+        self.restart_maze(position, step_count)
+        self.restart_solvers(position, direction, step_count)
+        self.maze_frame[0].after_id = self.maze_frame[0].after(100, update, self.maze_frame,
+        self.solvers, GOAL, self.create_new_maze_button)
+
+
+
+    def closed_main_window(self):
+
+        for frame in self.maze_frame:
+            frame.after_cancel(frame.after_id)
+
+        self.main_window.destroy()
+
+
+
+    def restart_maze(self, position, step_count):
+
+        self.create_new_maze_button.config(state = "disabled")
+
+        for frame in self.maze_frame:
+
+            frame.canvas.delete("all")
+            frame.maze_grid(self.new_maze)
+            frame.create_solver_marker()
+            frame.step_counter(step_count)
+            frame.move_solver_marker(position)
+
+
+    def restart_solvers(self, position, direction, step_count):
+
+        left_solver = Maze_solver(position, self.new_maze, direction, step_count, "left")
+        right_solver = Maze_solver(position, self.new_maze, direction, step_count, "right")
+        self.solvers = (left_solver, right_solver)
+
+
 
 def update(maze_frame, solvers, GOAL, create_new_maze_button):
 
