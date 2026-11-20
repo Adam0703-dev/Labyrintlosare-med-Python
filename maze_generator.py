@@ -103,8 +103,8 @@ def miner(new_maze, position, direction, stack):
 def update(new_maze, position, direction):
     """
     Funktionen ansvarar för uppdatingen av funktionen miner, så att en fullständig labyrint från start till slut skapas.
-    inparameter: new_maze, position, direction (matrix, tupel, tupel)
-    return: new_maze, position, direction (matrix, tupel, tupel)
+    inparameter: new_maze, position, direction, stack (matrix, tupel, tupel, list)
+    return: new_maze, position, direction, stack (matrix, tupel, tupel, list)
     """
 
     stack = [position]

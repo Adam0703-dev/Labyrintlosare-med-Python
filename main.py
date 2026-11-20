@@ -15,7 +15,7 @@ def terminal():
     """
     funktionen anvarar för att ta skapa användarmenyn för programmet
     inparameter: None
-    return: choice (int)
+    return: choice (str)
     """
 
     print(f"""
@@ -36,8 +36,6 @@ def initiate_terminal_maze(solvers, maze, GOAL):
     funktionen ansvarar för att sätta igång vyn för labyrinterna med dess lösare i terminalen
     inparameter: solvers, maze, GOAL (tupel, matrix, tupel)
     return: None
-    
-
     """
 
     terminal_windows = terminal_graphics.main_terminal(maze)
@@ -114,7 +112,7 @@ def main():
 
             elif choice =="2":
                 maze = initiate_random_maze_generator(maze, start_direction)
-                print("\n    New maze generated")
+                print("\n    New maze has been generated - try starting the program again! ")
 
 
             elif choice == "3":
@@ -127,6 +125,7 @@ def main():
 
             else:
                 print(f"\nInvalid input. Try again.")
+
 
     except FileNotFoundError:
         clear_terminal()

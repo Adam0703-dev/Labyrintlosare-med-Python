@@ -227,7 +227,8 @@ class Maze_window:
         """
         Metoden ansvara med att starta om värdena på varje attribut av objekten från Maze_frame klassen
         inparameter: position, step_count (tupel, int)
-        return: None"""
+        return: None
+        """
 
         self.create_new_maze_button.config(state = "disabled")
 
@@ -257,7 +258,7 @@ class Maze_window:
 def update(maze_frame, solvers, GOAL, create_new_maze_button):
     """
     Funktionen ansvarar för varje uppdaterad vy/rörelse för varje gång en lösare tar ett steg
-    inparameter: maze_frame, solvers, GOAL, create_new_maze_button (tupel, tupel, tupel, objekt från klassen Maze_winow)
+    inparameter: maze_frame, solvers, GOAL, create_new_maze_button (tupel, tupel, tupel, objekt från klassen Button)
     return: None
     """
 

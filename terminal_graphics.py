@@ -15,7 +15,8 @@ class Maze_terminal:
     def __init__(self, grid):
         """
         Konstruktorn används för att ge nödvändiga attribut för varje objekt/metod
-        inparameter: grud
+        inparameter: grid
+        return: None
         """
         self.grid = grid
         self.maze()
@@ -85,6 +86,7 @@ def print_maze_terminal(terminal_windows, maze):
     """
     Funktionen ansvarar för att skriva utt varje labyrint vy med dess markör bredvid varandra i terminalen.
     inparameter: terminal_windows, maze (tupler av objekt ur klassen Maze_terminal, matrix)
+    return: None
     """
 
     print(f"       LEFT WALL FOLLOWER                     RIGHT WALL FOLLOWER")
