@@ -1,8 +1,8 @@
 """
 Adam Odeh 2026-11-16
 
-filen algorithm ansvarar för att skapa rörelsen och riktningen för varje lösar objekt, DVS. algoritmen lösaren kommer
-förålla sig till under dess körning.
+filen algorithm ansvarar för att skapa rörelsen och riktningen för varje lösarobjekt, DVS. algoritmen lösaren kommer
+förhålla sig till under dess körning.
 """
 
 
@@ -13,7 +13,7 @@ class Maze_solver:
 
     def __init__(self, position, maze, direction, step_count, strategy):
         """"
-        Metoden initerar nödvandiga parameterar för klassen
+        Metoden initierar nödvändiga parameterar för klassen
         inparameter: position, maze, direction, step_count, strategy (tupel, lista, tupel, int, str)
         return: None
         """
@@ -53,7 +53,7 @@ class Maze_solver:
     def one_move(self, direction_rules):
         """
         Metoden ansvarar för och uppdaterar vilken riktning och position, samt hur många steg varje lösare har efter varje steg.
-        inparameter: direction_rules (tupler av tupler) - nya och definerade riktningar
+        inparameter: direction_rules (tupler av tupler) - nya och definierade riktningar
         return: None
         """
 
@@ -83,5 +83,3 @@ class Maze_solver:
                     self.position = (row, column)
                     self.step_count += 1
                     return None
-
-

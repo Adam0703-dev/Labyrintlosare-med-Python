@@ -36,7 +36,8 @@ def maze_reader(file):
 
 def create_empty_maze(maze):
     """
-    Funktionen ansvarar för att skapa en matris av enbart ettor - labyrint fylld av väggar
+    Funktionen ansvarar för att skapa en matris av enbart ettor med undanta för nollor vid start och mål
+    - labyrint fylld av väggar
     inparameter: maze (matrix)
     return: new_maze (matrix)
     """
@@ -59,8 +60,8 @@ def create_empty_maze(maze):
 
 def miner(new_maze, position, direction, stack):
     """
-    Funtionen ansvarar för varje ett steg i skapandet av gången (från ett till noll) för den slumpade labyrinten 
-    via en depth first search algoritm
+    Funtionen ansvarar för ett steg i skapandet av gången (från ett till noll) för den slumpade labyrinten 
+    via en djupet-först-söknings algoritm
     inparameter: new_maze, position, direction, stack (matrix, tupel, tupel, list)
     return: new_maze, position, direction, stack (matrix, tupel, tupel, list)
     """
@@ -102,8 +103,8 @@ def miner(new_maze, position, direction, stack):
 
 def update(new_maze, position, direction):
     """
-    Funktionen ansvarar för uppdatingen av funktionen miner, så att en fullständig labyrint från start till slut skapas.
-    inparameter: new_maze, position, direction, stack (matrix, tupel, tupel, list)
+    Funktionen ansvarar för uppdateringen av funktionen miner, så att en fullständig labyrint från start till slut skapas.
+    inparameter: new_maze, position, direction (matrix, tupel, tupel)
     return: new_maze, position, direction, stack (matrix, tupel, tupel, list)
     """
 

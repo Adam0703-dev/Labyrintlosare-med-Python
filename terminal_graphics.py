@@ -9,7 +9,7 @@ import os
 
 class Maze_terminal:
     """
-    Klassen Maze_terminal ansvarar för att skapa varje vy objekt i terminalen
+    Klassen Maze_terminal ansvarar för att skapa varje vyobjekt i terminalen
     """
     
     def __init__(self, grid):
@@ -68,7 +68,7 @@ def clear_terminal():
 
 def main_terminal(grid):
     """
-    Funktionen ansvarar för att skapa terminal vy objekten för varje lösare
+    Funktionen ansvarar för att skapa terminalvyobjekten för varje lösare
     inparameter: grid (matrix)
     return: terminal_windows (tupler av objekt ur klassen Maze_terminal)
     """
@@ -84,7 +84,7 @@ def main_terminal(grid):
 
 def print_maze_terminal(terminal_windows, maze):
     """
-    Funktionen ansvarar för att skriva utt varje labyrint vy med dess markör bredvid varandra i terminalen.
+    Funktionen ansvarar för att skriva utt varje labyrintvy med dess markör bredvid varandra i terminalen.
     inparameter: terminal_windows, maze (tupler av objekt ur klassen Maze_terminal, matrix)
     return: None
     """
@@ -125,7 +125,7 @@ def update(terminal_windows, solvers, maze, GOAL):
 
 def final_update(terminal_windows, solvers, maze):
     """
-    Funktionen ansvarar att printa ut den slutliga vyn för varje lösare och dess labyrint med antalet steg varje lösare tagit
+    Funktionen ansvarar för att printa ut den slutliga vyn för varje lösare och dess labyrint med antalet steg varje lösare tagit
     inparameter: terminal_windows, solvers, maze
     (tupler av objekt ur klassen Maze_terminal, tupler av objekt ur klassen Maze_solver från modulen "algorithm.py", matrix)
     return: None

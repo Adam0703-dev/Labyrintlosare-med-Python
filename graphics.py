@@ -4,7 +4,7 @@ Adam Odeh 2026-11-16
 filen graphics ansvarar för att skapa det grafiska användargränssnittet för labyrinten.
 
 källor:
-https://docs.python.org/3/library/tkinter.html#tkinter.Frame - för grfiska användargränssnittet
+https://docs.python.org/3/library/tkinter.html#tkinter.Frame - för grafiska användargränssnittet
 https://stackoverflow.com/questions/26168967/invalid-command-name-while-executing-after-script - för exempel 
 på hur man löser en bugg med stängningen av ett fönster under körandet
 
@@ -20,9 +20,7 @@ LENGTH = 600
 
 class Maze_frame(Frame):
     """
-    Denna klass ansvarar för varje frame för labyrintvy objekten
-    inparameter: Frame (subklass)
-    return: None
+    Denna klass ansvarar för varje frame för labyrintvyobjekten. Den ärver även från klassen Frame
     """
 
     def __init__(self, position, maze, step_count, strategy, after_id):
@@ -61,7 +59,7 @@ class Maze_frame(Frame):
 
     def step_counter(self, step_count):
         """
-        Metoden step_counter ansvarar för att ge och ändra värdet till attributet label
+        Metoden step_counter ansvarar för att ge och ändra värdet på attributet label
         inparameter: step_count (int)
         return: None
         """
@@ -128,12 +126,12 @@ class Maze_frame(Frame):
 class Maze_window:
     """
     Klassen Maze_window ansvarar för att skapa fönstret
-    där varje frame objekt och "starta om med ny labyrint" knapp ska ingå
+    där varje frame-objekt och knappen "starta om med ny labyrint" ska ingå
     """
 
     def __init__(self, position, direction, maze, step_count, GOAL, new_maze_function):
         """
-        Konstruktorn ansvarar för att ge nödvändiga inparameterar för objektet, huvudfönster.
+        Konstruktorn ansvarar för att ge nödvändiga inparametrar för objektet, huvudfönster.
         inparameter: position, direction, maze, step_count, GOAL, new_maze_function 
         (tupel, tupel, matrix, int, tupel, lambda function)
         return: None
@@ -152,7 +150,7 @@ class Maze_window:
 
     def create_main_window(self):
         """
-        Metoden ansvarar för att skapa/initiera huvudfönstret¨
+        Metoden ansvarar för att skapa/initiera huvudfönstret
         inparameter: None
         return: None
         """
@@ -165,7 +163,7 @@ class Maze_window:
 
     def generate_maze_frames(self, position, maze, step_count):
         """
-        Metoden ansvarar för att skapa objekt ur Maze_frame klassen
+        Metoden ansvarar för att skapa objekt ur Maze_frame - klassen
         inparameter: position, maze, step_count (tupel, matrix, int)
         return: None
         """
@@ -182,8 +180,8 @@ class Maze_window:
 
     def generate_maze_button(self, buttonpress):
         """
-        Metoden ansvarar för att skapa knapp objektet ur klassen Button, som används för att generera en ny labyrint
-        inparameter: buttonpress (metod ur samma klass - Maze_window)
+        Metoden ansvarar för att skapa knappobjektet ur klassen Button, som används för att generera en ny labyrint
+        inparameter: buttonpress (metod som anropas för knappen)
         return: None
         """
 
@@ -225,7 +223,7 @@ class Maze_window:
 
     def restart_maze(self, position, step_count):
         """
-        Metoden ansvara med att starta om värdena på varje attribut av objekten från Maze_frame klassen
+        Metoden ansvarar för att återställa markören och stegräknaren, samt att tömma canvas för objekten med Maze_frame-klassen
         inparameter: position, step_count (tupel, int)
         return: None
         """
@@ -244,7 +242,7 @@ class Maze_window:
     def restart_solvers(self, position, direction, step_count):
         """
         Metoden ansvarar för att starta om attributen för varje objekt/lösare från klassen Maze_solver,
-        i modulen "alghoritm.py".
+        i modulen "alghorithm.py".
         inparameter: position, direction, step_count (tupel, tupel, int)
         return: None
         """

@@ -13,7 +13,7 @@ from terminal_graphics import clear_terminal
 
 def terminal():
     """
-    funktionen anvarar för att ta skapa användarmenyn för programmet
+    funktionen anvarar för att skapa användarmenyn för programmet
     inparameter: None
     return: choice (str)
     """
@@ -46,7 +46,7 @@ def initiate_terminal_maze(solvers, maze, GOAL):
 
 def initiate_random_maze_generator(maze, direction):
     """
-    funtionen ansvarar för att generera en ny labyrint för lösaren att ta sig igenom
+    funktionen ansvarar för att generera en ny labyrint för lösaren att ta sig igenom
     inparameter: maze, direction (matrix, tupel)
     return: new_maze (matrix)
     """
@@ -72,7 +72,7 @@ def initiate_graphic_maze(position, direction, maze, solvers, step_count, GOAL):
     window = graphics.Maze_window(position, direction, maze, step_count, GOAL,
     lambda: initiate_random_maze_generator(maze, direction))
     window.maze_frame[0].after_id = window.maze_frame[0].after(100, graphics.update, window.maze_frame, solvers,
-    GOAL, window.create_new_maze_button)   #Ett labyrintfönster väljs for att initera uppdaterings loopen
+    GOAL, window.create_new_maze_button)   #Ett labyrintfönster väljs for att initiera uppdateringsloopen
     window.maze_frame[0].mainloop()
 
 
