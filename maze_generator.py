@@ -10,10 +10,12 @@ https://docs.python.org/3/library/random.html  Shuffle.
 
 import random
 
-
-
 def maze_reader(file):
-
+    """
+    Funktionen ansvarar för att läsa in värdena ur en textfil och omvandla den till en matris av integers
+    inparameter: file (str)
+    return: maze (matrix)
+    """
 
 
     maze = []
@@ -33,6 +35,11 @@ def maze_reader(file):
 
 
 def create_empty_maze(maze):
+    """
+    Funktionen ansvarar för att skapa en matris av enbart ettor - labyrint fylld av väggar
+    inparameter: maze (matrix)
+    return: new_maze (matrix)
+    """
 
     new_maze = []
 
@@ -45,11 +52,18 @@ def create_empty_maze(maze):
         new_maze.append(row_list)
     new_maze[0][1] = 0 #Start
     new_maze[-1][-2] = 0 #Mål
+
     return new_maze
 
 
 
 def miner(new_maze, position, direction, stack):
+    """
+    Funtionen ansvarar för varje ett steg i skapandet av gången (från ett till noll) för den slumpade labyrinten 
+    via en depth first search algoritm
+    inparameter: new_maze, position, direction, stack (matrix, tupel, tupel, list)
+    return: new_maze, position, direction, stack (matrix, tupel, tupel, list)
+    """
 
     directions = [(1,0), (0,-1), (-1,0), (0,1)] #ned, vänster, upp, höger
 
@@ -87,6 +101,11 @@ def miner(new_maze, position, direction, stack):
 
 
 def update(new_maze, position, direction):
+    """
+    Funktionen ansvarar för uppdatingen av funktionen miner, så att en fullständig labyrint från start till slut skapas.
+    inparameter: new_maze, position, direction (matrix, tupel, tupel)
+    return: new_maze, position, direction (matrix, tupel, tupel)
+    """
 
     stack = [position]
 
@@ -96,18 +115,3 @@ def update(new_maze, position, direction):
 
     return new_maze, position, direction, stack
         
-
-        
-
-
-    
-
-
-"""
-Använd stack för backtracking och kolla alltid två steg framåt, gå två steg bak OSV. då en vägg är en hel ruta.
-Använd dig av randomized depth-first search - iterative implementation
-
-Du behöver inleda varje program med att sätta hela txt filen till ettor förutom start och noll, sedan låta programmet
-köra en rad in. det blir (rad + 1, kolumn + 1)  till (len(rad) + 2), len(kolumn) + 2)
-"""
-            

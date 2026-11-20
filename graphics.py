@@ -20,10 +20,18 @@ LENGTH = 600
 
 class Maze_frame(Frame):
     """
-    Denna klass ansvarar för labyrintvyerna
+    Denna klass ansvarar för varje frame för labyrintvy objekten
+    inparameter: Frame (subklass)
+    return: None
     """
 
     def __init__(self, position, maze, step_count, strategy, after_id):
+        """
+        Konstruktorn ger nödvändiga attribut för objekten i klassen
+        inparameter: position, maze, step_count, strategy, after_id (tupel, matrix, int, str, str|int)
+        return: None
+        """
+
         super().__init__()
         self.square_length = (LENGTH/(len(maze)))
         self.strategy = strategy
@@ -39,6 +47,11 @@ class Maze_frame(Frame):
 
 
     def frame(self):
+        """
+        Metoden frame ansvarar för att skapa attributen, text (label), och vy (canvas), för objektet
+        inparameter: None
+        return: None
+        """
 
         self.label = Label(self)
         self.label.grid(row = 0)
@@ -46,14 +59,23 @@ class Maze_frame(Frame):
         self.canvas.grid(row = 1)
 
 
-
     def step_counter(self, step_count):
+        """
+        Metoden step_counter ansvarar för att ge och ändra värdet till attributet label
+        inparameter: step_count (int)
+        return: None
+        """
 
         strategy = self.strategy
         self.label.config(text = strategy + " step count =  " + str(step_count), fg = "black", font = 18)
 
 
     def create_solver_marker(self):
+        """
+        Metoden ansvarar för att skapa markören för varje lösare
+        inparameter: None
+        return: None
+        """
 
         position = self.position
         self.box = self.canvas.create_rectangle(
@@ -65,17 +87,28 @@ class Maze_frame(Frame):
 
 
     def move_solver_marker(self, position): 
+        """
+        Metoden ansvarar för att ändra positionen för markören
+        inparameter: position (tupel)
+        return: None
+        """
         
-                row, column = position
-                x = column * self.square_length
-                y = row * self.square_length
-                end_x = (column + 1) * self.square_length
-                end_y = (row + 1) * self.square_length
-                self.canvas.coords(self.box, x + self.square_length/10, y + self.square_length/10, end_x - self.square_length/10, end_y - self.square_length/10)
+        row, column = position
+        x = column * self.square_length
+        y = row * self.square_length
+        end_x = (column + 1) * self.square_length
+        end_y = (row + 1) * self.square_length
+        self.canvas.coords(self.box, x + self.square_length/10, y + self.square_length/10,
+        end_x - self.square_length/10, end_y - self.square_length/10)
 
 
 
     def maze_grid(self, maze):
+        """
+        Metoden ansvarar för att illustrera vägg och gång för varje labyrint
+        inparameter: maze (matrix)
+        return: None
+        """
 
         for row in range(len(maze)):
             for column in range(len(maze[row])):
@@ -92,10 +125,19 @@ class Maze_frame(Frame):
 
 
 
-class Maze_window():
-
+class Maze_window:
+    """
+    Klassen Maze_window ansvarar för att skapa fönstret
+    där varje frame objekt och "starta om med ny labyrint" knapp ska ingå
+    """
 
     def __init__(self, position, direction, maze, step_count, GOAL, new_maze_function):
+        """
+        Konstruktorn ansvarar för att ge nödvändiga inparameterar för objektet, huvudfönster.
+        inparameter: position, direction, maze, step_count, GOAL, new_maze_function 
+        (tupel, tupel, matrix, int, tupel, lambda function)
+        return: None
+        """
 
         self.create_main_window()
 
@@ -109,6 +151,11 @@ class Maze_window():
 
 
     def create_main_window(self):
+        """
+        Metoden ansvarar för att skapa/initiera huvudfönstret¨
+        inparameter: None
+        return: None
+        """
 
         self.main_window = Tk()
         self.main_window.geometry("1200x700")
@@ -117,6 +164,11 @@ class Maze_window():
 
 
     def generate_maze_frames(self, position, maze, step_count):
+        """
+        Metoden ansvarar för att skapa objekt ur Maze_frame klassen
+        inparameter: position, maze, step_count (tupel, matrix, int)
+        return: None
+        """
         
         left_maze = Maze_frame(position, maze, step_count, "LEFT:", 0)
         left_maze.grid(row = 0, column = 0)
@@ -129,6 +181,11 @@ class Maze_window():
 
 
     def generate_maze_button(self, buttonpress):
+        """
+        Metoden ansvarar för att skapa knapp objektet ur klassen Button, som används för att generera en ny labyrint
+        inparameter: buttonpress (metod ur samma klass - Maze_window)
+        return: None
+        """
 
         self.create_new_maze_button = Button(text = "Create new maze", font = 24,
         command = buttonpress, state = "disabled")
@@ -138,6 +195,11 @@ class Maze_window():
 
 
     def buttonpress(self, position, direction, step_count, GOAL):
+        """
+        Metoden ansvarar för kommandot/sekvensen som ska initieras vid nedtryck av given knapp
+        inparameter: position, direction, step_count, GOAL (tupel, tupel, int, tupel)
+        return: None
+        """
 
         self.new_maze = self.new_maze_function()
         self.restart_maze(position, step_count)
@@ -148,6 +210,11 @@ class Maze_window():
 
 
     def closed_main_window(self):
+        """
+        Metoden ansvarar för stoppning av det grafiska användargränssnittet när fönstret stängs ned
+        inparameter: None
+        return: None
+        """
 
         for frame in self.maze_frame:
             frame.after_cancel(frame.after_id)
@@ -157,6 +224,10 @@ class Maze_window():
 
 
     def restart_maze(self, position, step_count):
+        """
+        Metoden ansvara med att starta om värdena på varje attribut av objekten från Maze_frame klassen
+        inparameter: position, step_count (tupel, int)
+        return: None"""
 
         self.create_new_maze_button.config(state = "disabled")
 
@@ -170,6 +241,12 @@ class Maze_window():
 
 
     def restart_solvers(self, position, direction, step_count):
+        """
+        Metoden ansvarar för att starta om attributen för varje objekt/lösare från klassen Maze_solver,
+        i modulen "alghoritm.py".
+        inparameter: position, direction, step_count (tupel, tupel, int)
+        return: None
+        """
 
         left_solver = Maze_solver(position, self.new_maze, direction, step_count, "left")
         right_solver = Maze_solver(position, self.new_maze, direction, step_count, "right")
@@ -178,6 +255,11 @@ class Maze_window():
 
 
 def update(maze_frame, solvers, GOAL, create_new_maze_button):
+    """
+    Funktionen ansvarar för varje uppdaterad vy/rörelse för varje gång en lösare tar ett steg
+    inparameter: maze_frame, solvers, GOAL, create_new_maze_button (tupel, tupel, tupel, objekt från klassen Maze_winow)
+    return: None
+    """
 
     for maze_view, solver in zip(maze_frame, solvers):      #zip - https://docs.python.org/3.3/library/functions.html
         if solver.position != GOAL:

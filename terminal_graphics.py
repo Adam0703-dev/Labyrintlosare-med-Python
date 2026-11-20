@@ -7,16 +7,27 @@ Filen terminal_graphics ansvarar för att skapa labyrinten så att den kan ses i
 import time
 import os
 
-class Maze_terminal():
-
-
+class Maze_terminal:
+    """
+    Klassen Maze_terminal ansvarar för att skapa varje vy objekt i terminalen
+    """
+    
     def __init__(self, grid):
+        """
+        Konstruktorn används för att ge nödvändiga attribut för varje objekt/metod
+        inparameter: grud
+        """
         self.grid = grid
         self.maze()
 
 
 
     def maze(self):
+        """
+        Metoden ansvarar för att skapa labyrinten, från ettor och nollor, till "#" och " " 
+        inparameter: None
+        return: None
+        """
 
         grid = self.grid
 
@@ -33,16 +44,33 @@ class Maze_terminal():
 
 
     def solver_marker(self, position):
+        """
+        Metoden ansvarar för att omvandla markörens position i labyrinten till "X"
+        inparameter: position (tupel)
+        return: None
+        """
 
         row, column = position
         self.terminal_view[row][column] = "X"
 
 
 def clear_terminal():
+    """
+    Funktionen ansvarar för att rensa terminalen
+    inparameter: None
+    return: None
+    """
 
     os.system("cls")
 
+
+
 def main_terminal(grid):
+    """
+    Funktionen ansvarar för att skapa terminal vy objekten för varje lösare
+    inparameter: grid (matrix)
+    return: terminal_windows (tupler av objekt ur klassen Maze_terminal)
+    """
 
     left_maze = Maze_terminal(grid)
     right_maze = Maze_terminal(grid)
@@ -54,6 +82,10 @@ def main_terminal(grid):
 
 
 def print_maze_terminal(terminal_windows, maze):
+    """
+    Funktionen ansvarar för att skriva utt varje labyrint vy med dess markör bredvid varandra i terminalen.
+    inparameter: terminal_windows, maze (tupler av objekt ur klassen Maze_terminal, matrix)
+    """
 
     print(f"       LEFT WALL FOLLOWER                     RIGHT WALL FOLLOWER")
     
@@ -64,6 +96,13 @@ def print_maze_terminal(terminal_windows, maze):
 
     
 def update(terminal_windows, solvers, maze, GOAL):
+    """
+    Funktionen ansvarar för att uppdatera varje vy efter varje steg, genom att rensa och printa ut en ny
+    labyrint för varje steg
+    inparameter: terminal_windows, solvers, maze, GOAL (tupler av objekt ur klassen Maze_terminal,
+    tupler av objekt ur klassen Maze_solver från modulen "algorithm.py", matrix, tupler) 
+    return: None
+    """
 
     while (solvers[0].position != GOAL) or (solvers[1].position != GOAL):
         for maze_view, solver in zip(terminal_windows, solvers):
@@ -83,6 +122,12 @@ def update(terminal_windows, solvers, maze, GOAL):
 
 
 def final_update(terminal_windows, solvers, maze):
+    """
+    Funktionen ansvarar att printa ut den slutliga vyn för varje lösare och dess labyrint med antalet steg varje lösare tagit
+    inparameter: terminal_windows, solvers, maze
+    (tupler av objekt ur klassen Maze_terminal, tupler av objekt ur klassen Maze_solver från modulen "algorithm.py", matrix)
+    return: None
+    """
 
     clear_terminal()
     for window, solver in zip(terminal_windows, solvers):

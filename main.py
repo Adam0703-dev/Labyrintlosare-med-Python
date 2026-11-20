@@ -1,7 +1,8 @@
 """
+Adam Odeh 2026-11-16
+
 Main ansvarar för att starta och köra programmet "The Maze Solver" som både via grafiskt användargränssnitt och terminalen
 kan generera en labyrint, såväl som låta två lösare, en som följer vänster vägg, och en som följer höger vägg, lösa labyrinten
-
 """
 
 import graphics
@@ -33,7 +34,8 @@ def terminal():
 def initiate_terminal_maze(solvers, maze, GOAL):
     """
     funktionen ansvarar för att sätta igång vyn för labyrinterna med dess lösare i terminalen
-    inparameter: solvers, maze, GOAL
+    inparameter: solvers, maze, GOAL (tupel, matrix, tupel)
+    return: None
     
 
     """
@@ -45,6 +47,11 @@ def initiate_terminal_maze(solvers, maze, GOAL):
 
 
 def initiate_random_maze_generator(maze, direction):
+    """
+    funtionen ansvarar för att generera en ny labyrint för lösaren att ta sig igenom
+    inparameter: maze, direction (matrix, tupel)
+    return: new_maze (matrix)
+    """
 
     clear_terminal()
     miner_position = (1,1)
@@ -55,32 +62,36 @@ def initiate_random_maze_generator(maze, direction):
 
 
 def initiate_graphic_maze(position, direction, maze, solvers, step_count, GOAL):
+    """
+    funktionen ansvarar för att sätta igång det grafiska användargränssnittet för lösarna och labyrinten
+    med möjlighet att generera nya labyrinter i vyn
+    inparameter: position, direction, maze, solvers, step_count, GOAL (tupel, tupel, matrix, tupel, int, tupel)
+    return: None
+    """
 
     clear_terminal()
-
-    
-
-    # ASSE sa att jag inte ska ha nestlade funktioner, men det behövs då jag skapar create_new_maze_button objektet som 
-    #behövs för buttonpress, samtidigt som buttonpress funktionen behövs i create_main_window som behövs för att skapa knappen
 
     window = graphics.Maze_window(position, direction, maze, step_count, GOAL,
     lambda: initiate_random_maze_generator(maze, direction))
     window.maze_frame[0].after_id = window.maze_frame[0].after(100, graphics.update, window.maze_frame, solvers,
-    GOAL, window.create_new_maze_button)
-    #Ett labyrintfönster väljs for att initera uppdaterings loopen
+    GOAL, window.create_new_maze_button)   #Ett labyrintfönster väljs for att initera uppdaterings loopen
     window.maze_frame[0].mainloop()
 
 
 
 
 def main():
+    """
+    funktionen ansvarar för att starta programmet: The Maze Solver
+    inparameter: None
+    return: None
+    """
 
     file = "maze.txt"
 
     try:
 
         maze = maze_generator.maze_reader(file)
-
 
         START = (0 , 1)
         GOAL = (len(maze) - 1, len(maze[-1]) - 2) #näst sista kolumnen av bottenraden av labyrinten
@@ -91,7 +102,6 @@ def main():
         clear_terminal()
 
         while True:
-
 
             left_solver = Maze_solver(position, maze, start_direction, step_count, "left")
             right_solver = Maze_solver(position, maze, start_direction, step_count, "right")
